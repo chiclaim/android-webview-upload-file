@@ -2,7 +2,7 @@
 This sample demonstrate android webview choose file to upload.
 I just implement the client code ,the server code of receiver the file is not implemented. 
 
-First of all, you should build the server code by your eclipse(server code wrote by java). [server code download](https://github.com/chiclaim/android_mvvm_server)
+First of all, you should build the server code by your eclipse(server code was wrote by java). [server code download](https://github.com/chiclaim/android_mvvm_server)
 
 Then update the ip of url(get ip mac command `ifconfig` windows command `ipconfig`). 
 http://`192.168.1.109`:8080/AndroidMvvmServer/upload

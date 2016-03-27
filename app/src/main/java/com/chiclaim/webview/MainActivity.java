@@ -21,8 +21,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.chiclaim.webview.R;
-
 
 public class MainActivity extends Activity {
 
