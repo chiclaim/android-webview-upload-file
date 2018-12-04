@@ -22,7 +22,7 @@ This sample has test in Android3.0、Android4.0、Android 5.0、Android6.0
 ## 3. Bug
 In the android4.4 version , the web page canot get the right file name if you choose file from `Photo` not `file manager` . However it works in lolipop.
 
-![android4.4](http://img.blog.csdn.net/20160325160240125)
+![android4.4](https://github.com/chiclaim/android-webview-upload-file/blob/master/assets/www/android4.4.gif)
 
 
 
