@@ -10,7 +10,7 @@ http://`192.168.1.109`:8080/AndroidMvvmServer/upload
 Eventually, Run the android code on your device or emulator.
 
 
-![Android5.1](http://img.blog.csdn.net/20160325161714006)
+![Android5.1](https://github.com/chiclaim/android-webview-upload-file/blob/master/assets/www/emulator5.0.gif)
 
 
 ## 1. Function :
