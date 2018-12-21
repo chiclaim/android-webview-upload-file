@@ -72,45 +72,59 @@ public class MainFragment extends Fragment {
 
         mWebView.setWebChromeClient(new WebChromeClient() {
 
+
+            private void openFileChooser(String type) {
+                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                i.addCategory(Intent.CATEGORY_OPENABLE);
+                i.setType(type);
+                startActivityForResult(Intent.createChooser(i, "File Chooser"),
+                        RESULT_CODE_ICE_CREAM);
+            }
+
+            private void onShowFileChooser(Intent takePictureIntent) {
+                Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
+                contentSelectionIntent.setType("image/*");
+
+                Intent[] intentArray;
+                if (takePictureIntent != null) {
+                    intentArray = new Intent[]{takePictureIntent};
+                } else {
+                    intentArray = new Intent[0];
+                }
+
+                Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
+                chooserIntent.putExtra(Intent.EXTRA_TITLE, "选择文件");
+                chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray);
+
+                startActivityForResult(chooserIntent, REQUEST_CODE_LOLIPOP);
+
+            }
+
+
             //The undocumented magic method override
             //Eclipse will swear at you if you try to put @Override here
             // For Android 3.0+
             public void openFileChooser(ValueCallback<Uri> uploadMsg) {
-
                 mUploadMessage = uploadMsg;
-                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-                i.addCategory(Intent.CATEGORY_OPENABLE);
-                i.setType("image/*");
-                startActivityForResult(Intent.createChooser(i, "File Chooser"),
-                        RESULT_CODE_ICE_CREAM);
-
+                openFileChooser("image/*");
             }
 
             // For Android 3.0+
             public void openFileChooser(ValueCallback uploadMsg, String acceptType) {
                 mUploadMessage = uploadMsg;
-                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-                i.addCategory(Intent.CATEGORY_OPENABLE);
-                i.setType("*/*");
-                startActivityForResult(Intent.createChooser(i, "File Browser"),
-                        RESULT_CODE_ICE_CREAM);
+                openFileChooser("*/*");
             }
 
             //For Android 4.1
             public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
                 mUploadMessage = uploadMsg;
-                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-                i.addCategory(Intent.CATEGORY_OPENABLE);
-                i.setType("image/*");
-                startActivityForResult(Intent.createChooser(i, "File Chooser"),
-                        RESULT_CODE_ICE_CREAM);
-
+                openFileChooser("image/*");
             }
 
             //For Android5.0+
-            public boolean onShowFileChooser(
-                    WebView webView, ValueCallback<Uri[]> filePathCallback,
-                    FileChooserParams fileChooserParams) {
+            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
                 if (mFilePathCallback != null) {
                     mFilePathCallback.onReceiveValue(null);
                 }
@@ -131,40 +145,22 @@ public class MainFragment extends Fragment {
                     // Continue only if the File was successfully created
                     if (photoFile != null) {
                         mCameraPhotoPath = "file:" + photoFile.getAbsolutePath();
-                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                                Uri.fromFile(photoFile));
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
                     } else {
                         takePictureIntent = null;
                     }
                 }
-
-                Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
-                contentSelectionIntent.setType("image/*");
-
-                Intent[] intentArray;
-                if (takePictureIntent != null) {
-                    intentArray = new Intent[]{takePictureIntent};
-                } else {
-                    intentArray = new Intent[0];
-                }
-
-                Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
-                chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
-                chooserIntent.putExtra(Intent.EXTRA_TITLE, "Image Chooser");
-                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray);
-
-                startActivityForResult(chooserIntent, REQUEST_CODE_LOLIPOP);
-
+                onShowFileChooser(takePictureIntent);
                 return true;
             }
         });
 
         // Load the local index.html file
         if (mWebView.getUrl() == null) {
-            //mWebView.loadUrl("file:///android_asset/www/index.html");
+            mWebView.loadUrl("file:///android_asset/www/index.html");
+            //mWebView.loadUrl("file:///android_asset/www/index2.html");
             //mWebView.loadUrl("https://www.script-tutorials.com/demos/199/index.html");
-            mWebView.loadUrl("http://192.168.1.109:8080/AndroidMvvmServer/upload");
+            //mWebView.loadUrl("http://192.168.1.109:8080/AndroidMvvmServer/upload");
         }
 
         return rootView;
@@ -246,6 +242,8 @@ public class MainFragment extends Fragment {
                     if (data == null) {
                         // If there is not data, then we may have taken a photo
                         if (mCameraPhotoPath != null) {
+                            Log.d("MainFragment", mCameraPhotoPath);
+
                             results = new Uri[]{Uri.parse(mCameraPhotoPath)};
                         }
                     } else {
