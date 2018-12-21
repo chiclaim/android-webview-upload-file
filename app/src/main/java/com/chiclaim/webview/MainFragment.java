@@ -81,21 +81,22 @@ public class MainFragment extends Fragment {
                         RESULT_CODE_ICE_CREAM);
             }
 
-            private void onShowFileChooser(Intent takePictureIntent) {
-                Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
-                contentSelectionIntent.setType("image/*");
+            private void onShowFileChooser(Intent cameraIntent) {
+                //selectionIntent(相册、文件管理)
+                Intent selectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                selectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
+                selectionIntent.setType("image/*");
 
                 Intent[] intentArray;
-                if (takePictureIntent != null) {
-                    intentArray = new Intent[]{takePictureIntent};
+                if (cameraIntent != null) {
+                    intentArray = new Intent[]{cameraIntent};
                 } else {
                     intentArray = new Intent[0];
                 }
 
                 Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
                 chooserIntent.putExtra(Intent.EXTRA_TITLE, "选择文件");
-                chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
+                chooserIntent.putExtra(Intent.EXTRA_INTENT, selectionIntent);
                 chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray);
 
                 startActivityForResult(chooserIntent, REQUEST_CODE_LOLIPOP);
