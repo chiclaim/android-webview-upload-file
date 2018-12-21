@@ -6,12 +6,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * WebView 选择文件上传，自定义选择框
@@ -86,39 +92,65 @@ public class CustomChooserActivity extends Activity {
                 public void onClick(View v) {
                     resetCallback = false;
                     dialog.dismiss();
+
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                        File photoFile = null;
+                        try {
+                            photoFile = createImageFile();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+
+                        if (photoFile != null) {
+                            mCameraPhotoPath = "file:" + photoFile.getAbsolutePath();
+                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+                            startActivityForResult(takePictureIntent, REQUEST_CODE_CAMERA);
+                        }
+                    }
                 }
             });
         }
         dialog.show();
     }
 
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(imageFileName, ".jpg", storageDir);
+    }
+
+
+    private String mCameraPhotoPath;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case REQUEST_CODE_ALBUM:
-                Uri[] results = null;
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    String dataString = data.getDataString();
-                    if (dataString != null) {
-                        results = new Uri[]{Uri.parse(dataString)};
-                        Log.d("CustomChooserActivity", dataString);
+        Uri[] results = null;
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_CODE_ALBUM:
+                    if (data != null) {
+                        String dataString = data.getDataString();
+                        if (dataString != null) {
+                            results = new Uri[]{Uri.parse(dataString)};
+                            Log.d("CustomChooserActivity", dataString);
+                        }
                     }
-                }
-                if (mFilePathCallback != null) {
-                    mFilePathCallback.onReceiveValue(results);
-                    mFilePathCallback = null;
-                }
-                break;
-            case REQUEST_CODE_CAMERA:
-
-                break;
+                    break;
+                case REQUEST_CODE_CAMERA:
+                    if (mCameraPhotoPath != null) {
+                        results = new Uri[]{Uri.parse(mCameraPhotoPath)};
+                        Log.d("CustomChooserActivity", mCameraPhotoPath);
+                    }
+                    break;
+            }
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
+        if (mFilePathCallback != null) {
+            mFilePathCallback.onReceiveValue(results);
+            mFilePathCallback = null;
+        }
     }
 }
