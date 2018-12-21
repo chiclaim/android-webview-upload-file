@@ -1,18 +1,3 @@
-/*
- * Copyright (C) 2010 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.chiclaim.webview;
 
 import android.annotation.TargetApi;
@@ -39,11 +24,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.chiclaim.webview.R;
+public class AppChooserFragment extends Fragment {
 
-public class MainFragment extends Fragment {
-
-    private static final String TAG = MainFragment.class.getSimpleName();
+    private static final String TAG = AppChooserFragment.class.getSimpleName();
 
     public static final int REQUEST_CODE_LOLIPOP = 1;
     private final static int RESULT_CODE_ICE_CREAM = 2;
@@ -57,9 +40,9 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.app_chooser_fragment, container, false);
 
-        // Get reference of WebView from layout/activity_main.xml
+        // Get reference of WebView from layout/app_chooser_activity.xmlity.xml
         mWebView = (WebView) rootView.findViewById(R.id.fragment_main_webview);
 
         setUpWebViewDefaults(mWebView);
@@ -252,7 +235,7 @@ public class MainFragment extends Fragment {
                     if (data == null) {
                         // If there is not data, then we may have taken a photo
                         if (mCameraPhotoPath != null) {
-                            Log.d("MainFragment", mCameraPhotoPath);
+                            Log.d("AppChooserFragment", mCameraPhotoPath);
 
                             results = new Uri[]{Uri.parse(mCameraPhotoPath)};
                         }
