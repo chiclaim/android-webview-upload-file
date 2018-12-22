@@ -8,13 +8,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="appChooser"
-            android:text="系统自带的选择框"/>
+            android:text="@string/file_chooser_default"/>
 
 
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="customChooser"
-            android:text="自定义文件选择框"/>
+            android:text="@string/file_chooser_custom"/>
 
 </LinearLayout>

@@ -1,11 +1,9 @@
 package com.chiclaim.webview;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -17,7 +15,6 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,14 +39,12 @@ public class AppChooserFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.app_chooser_fragment, container, false);
 
-        // Get reference of WebView from layout/app_chooser_activity.xmlity.xml
         mWebView = (WebView) rootView.findViewById(R.id.fragment_main_webview);
 
-        setUpWebViewDefaults(mWebView);
+        WebSettings settings = mWebView.getSettings();
+        settings.setJavaScriptEnabled(true);
 
-        // Check whether we're recreating a previously destroyed instance
         if (savedInstanceState != null) {
-            // Restore the previous URL and history stack
             mWebView.restoreState(savedInstanceState);
         }
 
@@ -150,8 +145,8 @@ public class AppChooserFragment extends Fragment {
 
         // Load the local index.html file
         if (mWebView.getUrl() == null) {
-            mWebView.loadUrl("file:///android_asset/www/index.html");
-            //mWebView.loadUrl("file:///android_asset/www/index2.html");
+            //mWebView.loadUrl("file:///android_asset/www/index.html");
+            mWebView.loadUrl("file:///android_asset/www/index2.html");
             //mWebView.loadUrl("https://www.script-tutorials.com/demos/199/index.html");
             //mWebView.loadUrl("http://192.168.1.109:8080/AndroidMvvmServer/upload");
         }
@@ -173,41 +168,6 @@ public class AppChooserFragment extends Fragment {
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File imageFile = File.createTempFile(imageFileName, ".jpg", storageDir);
         return imageFile;
-    }
-
-    /**
-     * Convenience method to set some generic defaults for a
-     * given WebView
-     *
-     * @param webView
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void setUpWebViewDefaults(WebView webView) {
-        WebSettings settings = webView.getSettings();
-
-        // Enable Javascript
-        settings.setJavaScriptEnabled(true);
-
-        // Use WideViewport and Zoom out if there is no viewport defined
-        settings.setUseWideViewPort(true);
-        settings.setLoadWithOverviewMode(true);
-
-        // Enable pinch to zoom without the zoom buttons
-        settings.setBuiltInZoomControls(true);
-
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
-            // Hide the zoom controls for HONEYCOMB+
-            settings.setDisplayZoomControls(false);
-        }
-
-        // Enable remote debugging via chrome://inspect
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            WebView.setWebContentsDebuggingEnabled(true);
-        }
-
-        // We set the WebViewClient to ensure links are consumed by the WebView rather
-        // than passed to a browser if it can
-        mWebView.setWebViewClient(new WebViewClient());
     }
 
     @Override

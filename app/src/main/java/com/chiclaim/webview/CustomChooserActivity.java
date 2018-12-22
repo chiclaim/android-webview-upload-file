@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import java.io.File;
@@ -36,6 +37,9 @@ public class CustomChooserActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.custom_chooser_activity_layout);
         mWebView = (WebView) findViewById(R.id.webview);
+        WebSettings settings = mWebView.getSettings();
+        settings.setJavaScriptEnabled(true);
+
         initListener();
         mWebView.loadUrl("file:///android_asset/www/index2.html");
 
@@ -59,12 +63,12 @@ public class CustomChooserActivity extends Activity {
     }
 
     private Dialog dialog;
-    private boolean resetCallback;
+    private boolean resetCallback = true;
 
     private void showChooserDialog() {
         if (dialog == null) {
             dialog = new Dialog(this);
-            dialog.setTitle("文件选择");
+            dialog.setTitle(R.string.file_chooser);
             dialog.setContentView(R.layout.dialog_chooser_layout);
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
