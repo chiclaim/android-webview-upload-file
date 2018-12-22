@@ -21,6 +21,11 @@ http://`your ip address`:`port`/AndroidMvvmServer/upload，如 http://192.168.1.
 
 ![Android5.1](https://github.com/chiclaim/android-webview-upload-file/blob/master/assets/www/emulator5.0.gif)
 
+在`Android4.4`版本中, 如果使用`系统默认的文件选择器`，使用`相册`来选择文件而不是`文件`选项来选择文件 可能会遇到不能正确获取到选择的文件名. 如下图所示：
+
+
+![android4.4](https://github.com/chiclaim/android-webview-upload-file/blob/master/assets/www/android4.4.gif)
+
 在红米手机上(Android6.0)和华为荣耀7I(Android6.0)，WebView文件选择效果如下所示：
 
 ![红米手机上 Android6.0](https://github.com/chiclaim/android-webview-upload-file/blob/master/assets/www/xiaomi-vs-huawei.gif)
@@ -33,14 +38,11 @@ http://`your ip address`:`port`/AndroidMvvmServer/upload，如 http://192.168.1.
 
 
 
-## 3. Bug
-In the android4.4 version , the web page canot get the right file name if you choose file from `Photo` not `file manager` . However it works in lolipop.
+### 问答
 
-![android4.4](https://github.com/chiclaim/android-webview-upload-file/blob/master/assets/www/android4.4.gif)
+如果在使用的过程中，或者在此基础上进行修改的过程中 ，出现H5的中的`选择文件`按钮点击没有反应，可能是`ValueCallback`没有重置导致的。
 
-
-
-## 4. Referenced document
+### 引用问答
 1. [chromium-webview-samples](https://github.com/GoogleChrome/chromium-webview-samples)
 2. [file-upload-in-webview](http://stackoverflow.com/questions/5907369/file-upload-in-webview)
 
