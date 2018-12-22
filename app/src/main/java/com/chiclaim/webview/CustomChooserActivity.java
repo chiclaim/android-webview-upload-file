@@ -41,7 +41,7 @@ public class CustomChooserActivity extends Activity {
         settings.setJavaScriptEnabled(true);
 
         initListener();
-        mWebView.loadUrl("file:///android_asset/www/index2.html");
+        mWebView.loadUrl("file:///android_asset/www/index.html");
 
     }
 

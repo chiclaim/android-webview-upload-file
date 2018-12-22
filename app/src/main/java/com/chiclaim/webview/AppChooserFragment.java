@@ -55,7 +55,7 @@ public class AppChooserFragment extends Fragment {
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
                 i.addCategory(Intent.CATEGORY_OPENABLE);
                 i.setType(type);
-                startActivityForResult(Intent.createChooser(i, "File Chooser"),
+                startActivityForResult(Intent.createChooser(i, getString(R.string.file_chooser)),
                         RESULT_CODE_ICE_CREAM);
             }
 
@@ -82,7 +82,7 @@ public class AppChooserFragment extends Fragment {
                 }
 
                 Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
-                chooserIntent.putExtra(Intent.EXTRA_TITLE, "选择文件");
+                chooserIntent.putExtra(Intent.EXTRA_TITLE, getString(R.string.file_chooser));
                 chooserIntent.putExtra(Intent.EXTRA_INTENT, selectionIntent);
                 chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray);
 
@@ -126,8 +126,7 @@ public class AppChooserFragment extends Fragment {
                         photoFile = createImageFile();
                         takePictureIntent.putExtra("PhotoPath", mCameraPhotoPath);
                     } catch (IOException ex) {
-                        // Error occurred while creating the File
-                        Log.e(TAG, "Unable to create Image File", ex);
+                        ex.printStackTrace();
                     }
 
                     // Continue only if the File was successfully created
@@ -145,8 +144,8 @@ public class AppChooserFragment extends Fragment {
 
         // Load the local index.html file
         if (mWebView.getUrl() == null) {
-            //mWebView.loadUrl("file:///android_asset/www/index.html");
-            mWebView.loadUrl("file:///android_asset/www/index2.html");
+            mWebView.loadUrl("file:///android_asset/www/index.html");
+            //mWebView.loadUrl("file:///android_asset/www/index2.html");
             //mWebView.loadUrl("https://www.script-tutorials.com/demos/199/index.html");
             //mWebView.loadUrl("http://192.168.1.109:8080/AndroidMvvmServer/upload");
         }
