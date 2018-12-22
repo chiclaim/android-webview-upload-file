@@ -42,6 +42,8 @@ http://`your ip address`:`port`/AndroidMvvmServer/upload，如 http://192.168.1.
 
 如果在使用的过程中，或者在此基础上进行修改的过程中 ，出现H5的中的`选择文件`按钮点击没有反应，可能是`ValueCallback`没有重置导致的。
 
+[APK Demo下载地址](https://github.com/chiclaim/android-webview-upload-file/blob/master/assets/demo.apk)
+
 ### 引用问答
 1. [chromium-webview-samples](https://github.com/GoogleChrome/chromium-webview-samples)
 2. [file-upload-in-webview](http://stackoverflow.com/questions/5907369/file-upload-in-webview)
