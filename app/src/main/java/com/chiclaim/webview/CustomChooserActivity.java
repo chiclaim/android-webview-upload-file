@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -70,6 +71,13 @@ public class CustomChooserActivity extends Activity {
             dialog = new Dialog(this);
             dialog.setTitle(R.string.file_chooser);
             dialog.setContentView(R.layout.dialog_chooser_layout);
+
+            //兼容android5.0.1
+            // android5.0上dialog宽度变成了wrap_content
+            if (dialog.getWindow() != null) {
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            }
+
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
