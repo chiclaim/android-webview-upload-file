@@ -28,7 +28,7 @@ http://`your ip address`:`port`/AndroidMvvmServer/upload，如 http://192.168.1.
 
 ### 不同手机厂商手机默认的文件选择器
 
-在红米手机上(Android6.0)和华为荣耀7I(Android6.0)，WebView文件选择效果如下所示：
+在红米手机上Android6.0(左) 和 华为荣耀7IAndroid6.0(右)，WebView文件选择效果如下所示：
 
 ![红米手机上 Android6.0](https://github.com/chiclaim/android-webview-upload-file/blob/master/assets/www/xiaomi-vs-huawei.gif)
 
