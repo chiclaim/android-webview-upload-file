@@ -61,16 +61,18 @@ public class AppChooserFragment extends Fragment {
 
             private void onShowFileChooser(Intent cameraIntent) {
                 //整个弹出框为:相机、相册、文件管理
+                //如果安装了其他的相机、文件管理程序，也有可能会弹出
                 //selectionIntent(相册、文件管理)
-                Intent selectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                selectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
-                selectionIntent.setType("image/*");
+                //Intent selectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                //selectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
+                //selectionIntent.setType("image/*");
 
                 //------------------------------------
                 //如果通过下面的方式，则弹出的选择框有:相机、相册(Android9.0,Android8.0)
-                //如果是Android6.0系统上，依然是：相机、相册、文件管理
-                //Intent selectionIntent = new Intent(Intent.ACTION_PICK,null);
-                //selectionIntent.setType("image/*");
+                //如果是小米Android6.0系统上，依然是：相机、相册、文件管理
+                //如果安装了其他的相机(百度魔拍)、文件管理程序，也有可能会弹出
+                Intent selectionIntent = new Intent(Intent.ACTION_PICK,null);
+                selectionIntent.setType("image/*");
                 //------------------------------------
 
 
