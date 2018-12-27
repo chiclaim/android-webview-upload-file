@@ -12,6 +12,7 @@ http://`your ip address`:`port`/AndroidMvvmServer/upload，如 http://192.168.1.
 
 | 厂商        | 机型    |  系统版本  |
 | --------   | -----:   | :----: |
+| 三星        | GalaxyS4     |   Android5.0.1    |
 | 小米        | 红米4     |   Android6.0.1    |
 | 华为        | 荣耀7I     |   Android6.0.1    |
 | 华为        | 荣耀V8      |   Android8.0     |
@@ -43,9 +44,11 @@ http://`your ip address`:`port`/AndroidMvvmServer/upload，如 http://192.168.1.
 
 
 
-### 问答
+### 需要注意的问题
 
-如果在使用的过程中，或者在此基础上进行修改的过程中 ，出现H5的中的`选择文件`按钮点击没有反应，可能是`ValueCallback`没有重置导致的。
+1，如果在使用的过程中，或者在此基础上进行修改的过程中 ，出现H5的中的`选择文件`按钮点击没有反应，可能是`ValueCallback`没有重置导致的。
+
+2，本项目主要处理H5文件选择的问题，关于权限、文件存储的目录可以自行根据实际情况修改
 
 [APK Demo下载地址](https://github.com/chiclaim/android-webview-upload-file/blob/master/assets/demo.apk)
 
